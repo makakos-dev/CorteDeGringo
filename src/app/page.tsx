@@ -12,10 +12,10 @@ export default async function Home() {
     <Fragment>
       <Navbar />
       <div className='flex flex-col items-start px-28 pb-20 pt-14 max-xl:px-20 max-md:px-6 max-md:pb-12 max-md:pt-10'>
-        <div className='mb-6 flex w-full justify-between gap-6 max-md:mb-4 max-sm:flex-col'>
-          <div className='flex flex-col'>
-            <h1 className='w-full font-galada text-6xl font-medium max-lg:text-4xl'>Corte de Gringo</h1>
-            <p className='px-1 text-base font-light max-md:text-sm'>Estilo e Personalidade em Cada Corte</p>
+        <div className='mb-6 flex w-full justify-between gap-8 px-3 max-md:mb-4 max-sm:flex-col'>
+          <div className='flex flex-col gap-1'>
+            <h1 className='w-full font-galada text-6xl font-medium max-lg:text-5xl'>Corte de Gringo</h1>
+            <p className='text-base font-light max-md:text-sm'>Estilo e Personalidade em Cada Corte</p>
           </div>
           <SearchBar />
         </div>
