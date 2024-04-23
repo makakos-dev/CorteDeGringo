@@ -30,7 +30,7 @@ export const SideMenu = ({ session }: { session: Session }) => {
       </SheetTrigger>
       <SheetContent className='mt-auto flex flex-col'>
         <SheetHeader>
-          <LogoSVG className='mx-auto size-48' />
+          <LogoSVG className='mx-auto -mt-12 size-72' />
         </SheetHeader>
         <div className='mt-auto grid py-6'>
           {!isAtHome && (
