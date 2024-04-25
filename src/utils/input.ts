@@ -25,3 +25,12 @@ export const formatPhoneNumber = (input: string) => {
 export const formatFloatNumber = (input: string) => {
   return input.replace(/[^\d.]/g, '');
 };
+
+export const formatIntNumber = (input: string) => {
+  return input.replace(/[^\d]/g, '');
+};
+
+export const formatNumericInputToDecimal = (number: string) => {
+  const DECIMALS_UNIT = 100;
+  return Number(formatIntNumber(number)) / DECIMALS_UNIT;
+};

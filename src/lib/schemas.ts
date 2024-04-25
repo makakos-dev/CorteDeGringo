@@ -1,3 +1,4 @@
+import { formatNumericInputToDecimal } from '@/utils/input';
 import { z } from 'zod';
 
 const passwordRegex = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[!@#$%^&*()-+=])[A-Za-z\d!@#$%^&*()-+=]{8,}$/;
@@ -134,9 +135,14 @@ export const CreateHaircutSchema = z
       .min(1, {
         message: 'O nome deve conter pelo menos 1 caractere.',
       }),
-    price: z.coerce
-      .number({ errorMap: () => ({ message: 'O campo de preço aceita apenas números.' }) })
-      .positive({ message: 'Apenas valores positivos são permitidos para o preço.' }),
+    price: z
+      .string({ required_error: 'É necessário adicionar um preço.' })
+      .transform((value) => formatNumericInputToDecimal(value))
+      .pipe(
+        z
+          .number({ errorMap: () => ({ message: 'O campo de preço aceita apenas números.' }) })
+          .positive({ message: 'Apenas valores positivos são permitidos para o preço.' }),
+      ),
     description: z
       .string({ errorMap: () => ({ message: 'É necessário adicionar uma descrição.' }) })
       .trim()
