@@ -102,16 +102,18 @@ export const DashboardTableFilters = ({ employees }: { employees: User[] }) => {
           </SelectTrigger>
           <SelectContent>
             <SelectGroup>
-              {statuses.map((status) => {
-                return (
-                  <SelectItem key={status} value={status} className='cursor-pointer'>
-                    <div className='flex gap-2'>
-                      {StatusIcons[status]}
-                      {formatScheduleCaption(status)}
-                    </div>
-                  </SelectItem>
-                );
-              })}
+              {statuses
+                .filter((status) => !(status === 'UNAVAILABLE'))
+                .map((status) => {
+                  return (
+                    <SelectItem key={status} value={status} className='cursor-pointer'>
+                      <div className='flex gap-2'>
+                        {StatusIcons[status]}
+                        {formatScheduleCaption(status)}
+                      </div>
+                    </SelectItem>
+                  );
+                })}
             </SelectGroup>
           </SelectContent>
         </Select>

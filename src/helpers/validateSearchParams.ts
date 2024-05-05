@@ -23,8 +23,8 @@ export const validatePaymentMethod = (param: string | null, defaultPaymentMethod
   return paymentMethod.data;
 };
 
-export const validateStatus = (param: string | null, defaultStatus: Status) => {
-  const status = z.enum(statuses).safeParse(param);
+export const validateStatus = (param: string | null, defaultStatus: Exclude<Status, 'UNAVAILABLE'>) => {
+  const status = z.enum(statuses).exclude(['UNAVAILABLE']).safeParse(param);
   if (!param || !status.success) return defaultStatus;
   return status.data;
 };

@@ -12,6 +12,7 @@ import { statuses } from '@/lib/schemas';
 import { ptBR } from 'date-fns/locale';
 import { Button } from './ui/button';
 import { cn } from '@/lib/utils';
+import { Fragment } from 'react';
 
 export const AppointmentsTableFilters = () => {
   const searchParams = useSearchParams();
@@ -43,8 +44,8 @@ export const AppointmentsTableFilters = () => {
   );
 
   return (
-    <div className='flex gap-2 max-[865px]:w-full max-sm:flex-col'>
-      <div className='flex w-[225px] flex-col gap-2  max-[865px]:w-[50%] max-md:w-full'>
+    <Fragment>
+      <div className='flex flex-col gap-2 max-md:w-full'>
         <Popover>
           <PopoverTrigger asChild className='px-3'>
             <Button variant='outline' className={cn('justify-start gap-2 text-left font-normal')}>
@@ -75,7 +76,7 @@ export const AppointmentsTableFilters = () => {
           </PopoverContent>
         </Popover>
       </div>
-      <div className='flex w-[235px] flex-col gap-2 max-[865px]:w-[50%] max-md:w-full'>
+      <div className='flex flex-col gap-2 max-md:w-full'>
         <Select
           onValueChange={(status) =>
             createSelectInputQueryString({ inputKey: 'status', selectInput: status, searchParams })
@@ -86,20 +87,22 @@ export const AppointmentsTableFilters = () => {
           </SelectTrigger>
           <SelectContent>
             <SelectGroup>
-              {statuses.map((status) => {
-                return (
-                  <SelectItem key={status} value={status} className='cursor-pointer'>
-                    <div className='flex gap-2'>
-                      {StatusIcons[status]}
-                      {formatScheduleCaption(status)}
-                    </div>
-                  </SelectItem>
-                );
-              })}
+              {statuses
+                .filter((status) => !(status === 'UNAVAILABLE'))
+                .map((status) => {
+                  return (
+                    <SelectItem key={status} value={status} className='cursor-pointer'>
+                      <div className='flex gap-2'>
+                        {StatusIcons[status]}
+                        {formatScheduleCaption(status)}
+                      </div>
+                    </SelectItem>
+                  );
+                })}
             </SelectGroup>
           </SelectContent>
         </Select>
       </div>
-    </div>
+    </Fragment>
   );
 };
