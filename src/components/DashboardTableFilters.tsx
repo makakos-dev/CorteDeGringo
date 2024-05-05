@@ -23,6 +23,7 @@ export const DashboardTableFilters = ({ employees }: { employees: User[] }) => {
     BREAK: <CircleSlash className='size-5' />,
     PENDING: <CircleDot className='size-5' />,
     CANCELED: <XCircle className='size-5' />,
+    UNAVAILABLE: <XCircle className='size-5' />,
   };
 
   const selectedEmployee = validateEmployee(searchParams.get('employee'), validEmployees, employees[0].name);
@@ -102,18 +103,16 @@ export const DashboardTableFilters = ({ employees }: { employees: User[] }) => {
           </SelectTrigger>
           <SelectContent>
             <SelectGroup>
-              {statuses
-                .filter((status) => !(status === 'UNAVAILABLE'))
-                .map((status) => {
-                  return (
-                    <SelectItem key={status} value={status} className='cursor-pointer'>
-                      <div className='flex gap-2'>
-                        {StatusIcons[status]}
-                        {formatScheduleCaption(status)}
-                      </div>
-                    </SelectItem>
-                  );
-                })}
+              {statuses.map((status) => {
+                return status !== 'UNAVAILABLE' ? (
+                  <SelectItem key={status} value={status} className='cursor-pointer'>
+                    <div className='flex gap-2'>
+                      {StatusIcons[status]}
+                      {formatScheduleCaption(status)}
+                    </div>
+                  </SelectItem>
+                ) : null;
+              })}
             </SelectGroup>
           </SelectContent>
         </Select>

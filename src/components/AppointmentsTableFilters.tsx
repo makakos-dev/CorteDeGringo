@@ -25,6 +25,7 @@ export const AppointmentsTableFilters = () => {
     BREAK: <CircleSlash className='size-5' />,
     PENDING: <CircleDot className='size-5' />,
     CANCELED: <XCircle className='size-5' />,
+    UNAVAILABLE: <XCircle className='size-5' />,
   };
 
   const datePlaceholder = searchParams.get('date')
@@ -87,18 +88,16 @@ export const AppointmentsTableFilters = () => {
           </SelectTrigger>
           <SelectContent>
             <SelectGroup>
-              {statuses
-                .filter((status) => !(status === 'UNAVAILABLE'))
-                .map((status) => {
-                  return (
-                    <SelectItem key={status} value={status} className='cursor-pointer'>
-                      <div className='flex gap-2'>
-                        {StatusIcons[status]}
-                        {formatScheduleCaption(status)}
-                      </div>
-                    </SelectItem>
-                  );
-                })}
+              {statuses.map((status) => {
+                return status !== 'UNAVAILABLE' ? (
+                  <SelectItem key={status} value={status} className='cursor-pointer'>
+                    <div className='flex gap-2'>
+                      {StatusIcons[status]}
+                      {formatScheduleCaption(status)}
+                    </div>
+                  </SelectItem>
+                ) : null;
+              })}
             </SelectGroup>
           </SelectContent>
         </Select>
